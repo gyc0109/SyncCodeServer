@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+
+{% block title %}项目管理{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>项目列表</h1>
+        <div>
+            <a style="margin: 10px 0" href="{% url 'project_add' %}" class="btn btn-primary">添加</a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>项目名</th>
+                <th>环境</th>
+                <th>仓库地址</th>
+                <th>项目路径</th>
+                <th>关联服务器</th>
+                <th>发布任务</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for row in queryset %}
+                <tr>
+                    <th>{{ row.id }}</th>
+                    <th>{{ row.title }}</th>
+                    <th>{{ row.get_env_display }}</th>
+                    <th>{{ row.repo }}</th>
+                    <th>{{ row.path }}</th>
+                    <th>
+                        {% for item in row.servers.all %}
+                            <span style="border: 1px solid #dddddd; padding: 5px;">{{ item }}</span>
+                        {% endfor %}
+                    </th>
+                    <th>
+                        <a href="{% url 'task_list' project_id=row.id %}">发布任务</a>
+                    </th>
+                    <th>
+                        <a href="{% url 'project_edit' nid=row.id %}">编辑</a>
+                        <a onclick="removeRow(this, {{ row.id }});">删除</a>
+                    </th>
+                </tr>
+            {% endfor %}
+
+            {% block js %}
+                <script>
+                    function removeRow(ths, nid) {
+                        let result = confirm('确认删除吗?');
+                        console.log(result);
+                        if (result) {
+                            $.ajax({
+                                url: '/project/delete/' + nid + '/',
+                                type: 'GET',
+                                data: 'nid',
+                                dataType: 'JSON',
+                                success: function (res) {
+                                    if (res.status) {
+                                        $(ths).parent().parent().remove();
+                                    }
+                                }
+                            })
+
+                        }
+                    }
+                </script>
+            {% endblock %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

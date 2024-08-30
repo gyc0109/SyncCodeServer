@@ -1,0 +1,130 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>channles发布</h1>
+        <input type="button" class="btn btn-primary" value="初始化图标" onclick="createDiagram()"/>
+        <input type="button" class="btn btn-primary" value="代码发布" onclick="doDeploy()">
+
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <td>项目名称:{{ task_object.project.title }}</td>
+                <td>环境:{{ task_object.project.get_env_display }}</td>
+            </tr>
+            <tr>
+                <td>版本:{{ task_object.tag }}</td>
+                <td>状态:{{ task_object.get_status_display }}</td>
+            </tr>
+            <tr>
+                <td colspan="2">仓库地址:{{ task_object.project.repo }}</td>
+            </tr>
+            <tr>
+                <td colspan="2">线上路径:{{ task_object.project.path }}</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <div>关联服务器</div>
+                    <ul>
+                        {% for item in task_object.project.servers.all %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="content" style="height:350px; background-color: #DAE4E4;"></div>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script src="{% static "js/go.js" %}"></script>
+
+    <script>
+        var diagram;
+        var ws;
+
+        // jquery 功能当页面加载完毕后自动执行代码块中函数
+        $(function () {
+            initDiagram();
+            initWebSocket();
+        });
+
+
+        function initDiagram() {
+
+            if (typeof go === 'undefined') {
+                console.error("GoJS is not loaded.");
+                return;
+            }
+
+            var $ = go.GraphObject.make;
+            diagram = $(go.Diagram, "content", {
+                layout: $(go.TreeLayout, {
+                    angle: 0,
+                    nodeSpacing: 20,
+                    layerSpacing: 70
+                })
+            });
+
+            diagram.nodeTemplate = $(go.Node, "Auto",
+                $(go.Shape, {
+                    figure: "RoundedRectangle",
+                    fill: 'lightgray',
+                    stroke: 'lightgray'
+                }, new go.Binding("figure", "figure"), new go.Binding("fill", "color"), new go.Binding("stroke", "color")),
+                $(go.TextBlock, {margin: 8}, new go.Binding("text", "text"))
+            );
+
+            diagram.linkTemplate = $(go.Link,
+                {routing: go.Link.Orthogonal},
+                $(go.Shape, {stroke: 'lightgray'}, new go.Binding('stroke', 'link_color')),
+                $(go.Shape, {toArrow: "OpenTriangle", stroke: 'lightgray'}, new go.Binding('stroke', 'link_color'))
+            );
+
+            /*
+            var nodeDataArray = [
+                {key: "start", text: '开始', figure: 'Ellipse', color: "lightgreen"},
+                {key: "download", parent: 'start', text: '下载代码', color: "lightgreen", link_text: '执行中...'},
+                {key: "compile", parent: 'download', text: '本地编译', color: "lightgreen"},
+                {key: "zip", parent: 'compile', text: '打包', color: "red", link_color: 'red'},
+                {key: "c1", text: '服务器1', parent: "zip"},
+                {key: "c11", text: '服务重启', parent: "c1"},
+                {key: "c2", text: '服务器2', parent: "zip"},
+                {key: "c21", text: '服务重启', parent: "c2"},
+                {key: "c3", text: '服务器3', parent: "zip"},
+                {key: "c31", text: '服务重启', parent: "c3"}
+            ];
+            diagram.model = new go.TreeModel(nodeDataArray);
+            */
+        }
+
+        function initWebSocket() {
+            ws = new WebSocket('ws://127.0.0.1:8000/publish/{{ task_object.id }}/');
+
+            ws.onmessage = function (event) {
+                var result = JSON.parse(event.data);
+                if (result.code === 'init') {
+                    console.log(result)
+                    diagram.model = new go.TreeModel(result.data);
+                } else if (result.code === "update") {
+                    // 更新节点颜色：node_id:1,color:green
+                    var node = diagram.model.findNodeDataForKey(result.node_id);
+                    diagram.model.setDataProperty(node, "color", result.color);
+                }
+            }
+        }
+
+        function createDiagram() {
+            ws.send("init")
+        }
+
+        function doDeploy() {
+            ws.send('deploy')
+        }
+    </script>
+{% endblock %}

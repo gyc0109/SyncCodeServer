@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block title %}项目管理{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>发布任务单: ( {{ project_object.title }} - {{ project_object.get_env_display }} )</h1>
+        <div>
+            <a style="margin: 10px 0" href="{% url 'task_add' project_id=project_object.id %}" class="btn btn-primary">添加</a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>标识</th>
+                <th>状态</th>
+                <th>操作</th>
+                <th>发布</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for row in queryset %}
+                <tr>
+                    <th>{{ row.id }}</th>
+                    <th>{{ row.uid }}</th>
+                    <th>{{ row.get_status_display }}</th>
+                    <th>
+                        <a href="{% url 'deploy' task_id=row.id %}">发布</a>
+                    </th>
+                </tr>
+            {% endfor %}
+
+            {% block js %}
+                <script>
+                    function removeRow(ths, nid) {
+                        let result = confirm('确认删除吗?');
+                        console.log(result);
+                        if (result) {
+                            $.ajax({
+                                url: '/project/delete/' + nid + '/',
+                                type: 'GET',
+                                data: 'nid',
+                                dataType: 'JSON',
+                                success: function (res) {
+                                    if (res.status) {
+                                        $(ths).parent().parent().remove();
+                                    }
+                                }
+                            })
+
+                        }
+                    }
+                </script>
+            {% endblock %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

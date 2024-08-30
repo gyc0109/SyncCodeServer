@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block title %}服务器管理{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>服务器列表</h1>
+        <div>
+            <a style="margin: 10px 0" href="{% url 'server_add' %}" class="btn btn-primary">添加</a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>主机名</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for row in queryset %}
+                <tr>
+                    <th>{{ row.id }}</th>
+                    <th>{{ row.hostname }}</th>
+                    <th>
+                        <a href="{% url 'server_edit' nid=row.id %}">编辑</a>
+                        <a onclick="removeRow(this, {{ row.id }});">删除</a>
+                    </th>
+                </tr>
+            {% endfor %}
+
+            {% block js %}
+                <script>
+                    function removeRow(ths, nid) {
+                        let result = confirm('确认删除吗?');
+                        console.log(result);
+                        if (result) {
+                            $.ajax({
+                                url: '/server/delete/' + nid + '/',
+                                type: 'GET',
+                                data: 'nid',
+                                dataType: 'JSON',
+                                success: function (res) {
+                                    if (res.status) {
+                                        $(ths).parent().parent().remove();
+                                    }
+                                }
+                            })
+
+                        }
+                    }
+                </script>
+            {% endblock %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
