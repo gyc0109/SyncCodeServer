@@ -91,7 +91,8 @@ DATABASES = {
         'NAME': 'sync_code_server',  # 数据库名字
         'USER': 'root',
         'PASSWORD': '1452128068*Gyc',
-        'HOST': '127.0.0.1',  # 那台机器安装了MySQL
+        # 'HOST': '127.0.0.1',  # 那台机器安装了MySQL
+        'HOST': '156.238.236.88',  # 那台机器安装了MySQL
         'PORT': 3306,
     }
 }
