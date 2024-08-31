@@ -1,0 +1,5 @@
+Django
+mysqlclient
+daphne
+channels
+pillow
