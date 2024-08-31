@@ -4,39 +4,46 @@
 {% block content %}
     <div class="container">
         <h1>channles发布</h1>
-        <input type="button" class="btn btn-primary" value="初始化图标" onclick="createDiagram()"/>
-        <input type="button" class="btn btn-primary" value="代码发布" onclick="doDeploy()">
+        <input type="button" class="btn btn-primary" style="margin-bottom: 5px" value="初始化图标" onclick="createDiagram()"/>
+        <input type="button" class="btn btn-primary" style="margin-bottom: 5px" value="代码发布" onclick="doDeploy()">
 
-        <table class="table table-bordered">
-            <tbody>
-            <tr>
-                <td>项目名称:{{ task_object.project.title }}</td>
-                <td>环境:{{ task_object.project.get_env_display }}</td>
-            </tr>
-            <tr>
-                <td>版本:{{ task_object.tag }}</td>
-                <td>状态:{{ task_object.get_status_display }}</td>
-            </tr>
-            <tr>
-                <td colspan="2">仓库地址:{{ task_object.project.repo }}</td>
-            </tr>
-            <tr>
-                <td colspan="2">线上路径:{{ task_object.project.path }}</td>
-            </tr>
+        <div class="panel panel-default">
+            <div class="panel-heading"> 发布基本信息</div>
+            <div class="panel-body">
+                <table class="table table-bordered">
 
-            <tr>
-                <td colspan="2">
-                    <div>关联服务器</div>
-                    <ul>
-                        {% for item in task_object.project.servers.all %}
-                            <li>{{ item }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <div id="content" style="height:350px; background-color: #DAE4E4;"></div>
+                    <tbody>
+                    <tr>
+                        <td>项目名称:{{ task_object.project.title }}</td>
+                        <td>环境:{{ task_object.project.get_env_display }}</td>
+                    </tr>
+                    <tr>
+                        <td>版本:{{ task_object.tag }}</td>
+                        <td>状态:{{ task_object.get_status_display }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">仓库地址:{{ task_object.project.repo }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">线上路径:{{ task_object.project.path }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <div>关联服务器</div>
+                            <ul>
+                                {% for item in task_object.project.servers.all %}
+                                    <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="content" style="height:350px; background-color: #DAE4E4;"></div>
+            </div>
+        </div>
+
     </div>
 {% endblock %}
 

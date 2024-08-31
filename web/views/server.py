@@ -4,11 +4,27 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from web import models
 from web.forms.server import ServerModelForm
+from web.utils.pagination import Pagination
 
 
 def server_list(request):
-    queryset = models.Server.objects.all()
-    return render(request, 'server_list.html', {'queryset': queryset})
+    # 构造搜索
+    data_dict = {}
+    search_data = request.GET.get('q', "")
+    if search_data:
+        data_dict["projectname__contains"] = search_data
+
+    queryset = models.Server.objects.filter(**data_dict)
+
+    # 分页
+    page_object = Pagination(request, queryset)
+    context = {
+        'queryset': page_object.page_queryset,
+        'page_string': page_object.html(),
+        'search_data': search_data
+    }
+
+    return render(request, 'server_list.html', context)
 
 
 @csrf_exempt

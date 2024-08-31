@@ -5,9 +5,31 @@
 {% block content %}
     <div class="container">
         <h1>服务器列表</h1>
-        <div>
-            <a style="margin: 10px 0" href="{% url 'server_add' %}" class="btn btn-primary">添加</a>
+        <div class="row">
+            <div class="col-md-8">
+                <div>
+                    <a style="margin: 10px 0" href="{% url 'server_add' %}" class="btn btn-primary">添加</a>
+                </div>
+            </div>
+            <!-- 搜索框 -->
+            <div class="col-md-4">
+                <div style="float: right;width: 300px;">
+                    <form method="get">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="主机名"
+                                   value="{{ search_data }}">
+                            <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                      </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
+
+
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -53,6 +75,16 @@
             {% endblock %}
             </tbody>
         </table>
+
+        <!-- 分页条 -->
+        {% for obj in queryset %}
+            {{ obj.xx }}
+        {% endfor %}
+
+        <ul class="pagination">
+            {{ page_string }}
+        </ul>
+
     </div>
 
 {% endblock %}

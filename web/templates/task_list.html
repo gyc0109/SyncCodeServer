@@ -15,7 +15,7 @@
                 <th>标识</th>
                 <th>状态</th>
                 <th>操作</th>
-                <th>发布</th>
+                <th>删除</th>
             </tr>
             </thead>
             <tbody>
@@ -28,6 +28,9 @@
                     <th>
                         <a href="{% url 'deploy' task_id=row.id %}">发布</a>
                     </th>
+                    <th>
+                        <a onclick="removeRow(this, {{ row.id }});">删除</a>
+                    </th>
                 </tr>
             {% endfor %}
 
@@ -38,7 +41,7 @@
                         console.log(result);
                         if (result) {
                             $.ajax({
-                                url: '/project/delete/' + nid + '/',
+                                url: '/task/delete/' + nid + '/',
                                 type: 'GET',
                                 data: 'nid',
                                 dataType: 'JSON',
@@ -55,6 +58,15 @@
             {% endblock %}
             </tbody>
         </table>
+
+        <!-- 分页条 -->
+        {% for obj in queryset %}
+            {{ obj.xx }}
+        {% endfor %}
+
+        <ul class="pagination">
+            {{ page_string }}
+        </ul>
     </div>
 
 {% endblock %}

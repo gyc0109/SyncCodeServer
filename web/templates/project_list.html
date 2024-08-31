@@ -5,8 +5,25 @@
 {% block content %}
     <div class="container">
         <h1>项目列表</h1>
-        <div>
-            <a style="margin: 10px 0" href="{% url 'project_add' %}" class="btn btn-primary">添加</a>
+        <div class="col-md-8">
+            <div>
+                <a style="margin: 10px 0" href="{% url 'project_add' %}" class="btn btn-primary">添加</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div style="float: right;width: 300px;">
+                <form method="get">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="项目名"
+                               value="{{ search_data }}">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </button>
+                      </span>
+                    </div>
+                </form>
+            </div>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -69,6 +86,16 @@
             {% endblock %}
             </tbody>
         </table>
+
+        <!-- 分页条 -->
+        {% for obj in queryset %}
+            {{ obj.xx }}
+        {% endfor %}
+
+        <ul class="pagination">
+            {{ page_string }}
+        </ul>
+
     </div>
 
 {% endblock %}

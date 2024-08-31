@@ -18,13 +18,14 @@ from tkinter.font import names
 
 from django.contrib import admin
 from django.urls import path
+from django.shortcuts import redirect
 from web.views import server, project, task, admin, account, home
 
 urlpatterns = [
     # path("admin/", admin.site.urls),
 
     # 默认展示页面路径
-    path("", home.home_show, name='home_show'),
+    path("", lambda request: redirect("home_show")),
     path("home/", home.home_show, name='home_show'),
 
     # 服务器管理
@@ -44,6 +45,7 @@ urlpatterns = [
     # 任务管理
     path("task/list/<int:project_id>/", task.task_list, name='task_list'),
     path("task/add/<int:project_id>/", task.task_add, name='task_add'),
+    path("task/delete/<int:nid>/", task.task_delete, name='task_delete'),
     path("hook/template/<int:tid>/", task.hook_template, name='hook_template'),
     path("deploy/<int:task_id>/", task.deploy, name='deploy'),
 

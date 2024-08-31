@@ -57,33 +57,38 @@
 
 {% block content %}
     <div class="container">
-        <h1>项目相关信息</h1>
-        <table class="table table-bordered">
-            <tbody>
-            <tr>
-                <td>项目名称: {{ project_object.title }}</td>
-                <td>项目环境: {{ project_object.get_env_display }}</td>
-            </tr>
-            <tr>
-                <td colspan="2">仓库地址: {{ project_object.repo }}</td>
-            </tr>
-            <tr>
-                <td colspan="2">线上路径: {{ project_object.path }}</td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div>
-                        关联服务器
-                    </div>
-                    <ul>
-                        {% for item in project_object.servers.all %}
-                            <li>{{ item }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="panel panel-default">
+            <div class="panel-heading"><span class="glyphicon glyphicon-book" aria-hidden="true"></span> 项目相关信息
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tbody>
+                    <tr>
+                        <td>项目名称: {{ project_object.title }}</td>
+                        <td>项目环境: {{ project_object.get_env_display }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">仓库地址: {{ project_object.repo }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">线上路径: {{ project_object.path }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div>
+                                关联服务器
+                            </div>
+                            <ul>
+                                {% for item in project_object.servers.all %}
+                                    <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
         <form action="" method="post" novalidate>

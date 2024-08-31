@@ -2,6 +2,6 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240830203607/peiqi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/codes/Django_login/Django_login-test-v1-20240829205747/Django_login" vcs="Git" />
   </component>
 </project>
