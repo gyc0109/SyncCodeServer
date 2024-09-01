@@ -27,7 +27,9 @@ SECRET_KEY = "django-insecure-!aco4s1v^0qbp)=m5vg+4mi@w5)$hi%m-q9lu!#(fulsb(%f#b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS 用于防止 HTTP Host 头攻击
+# 需要将主机名或 IP 地址添加到 ALLOWED_HOSTS 列表中允许这些主机名或 IP 地址访问 Django 应用
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -91,8 +93,8 @@ DATABASES = {
         'NAME': 'sync_code_server',  # 数据库名字
         'USER': 'root',
         'PASSWORD': '1452128068*Gyc',
-        # 'HOST': '127.0.0.1',  # 那台机器安装了MySQL
-        'HOST': '156.238.236.88',  # 那台机器安装了MySQL
+        'HOST': '127.0.0.1',  # 那台机器安装了MySQL
+        # 'HOST': '156.238.236.88',  # 那台机器安装了MySQL
         'PORT': 3306,
     }
 }
