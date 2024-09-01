@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from web import models
 from web.forms.server import ServerModelForm
 from web.utils.pagination import Pagination
+from openpyxl import load_workbook
 
 
 def server_list(request):
@@ -12,7 +13,7 @@ def server_list(request):
     data_dict = {}
     search_data = request.GET.get('q', "")
     if search_data:
-        data_dict["projectname__contains"] = search_data
+        data_dict["hostname__contains"] = search_data
 
     queryset = models.Server.objects.filter(**data_dict)
 
@@ -62,3 +63,24 @@ def server_edit(request, nid):
 def server_delete(request, nid):
     models.Server.objects.filter(id=nid).delete()
     return JsonResponse({"status": True})
+
+def server_multi(request):
+    """ 批量上传（Excel文件）"""
+    # 1.获取用户上传的文件对象
+    file_object = request.FILES.get("exc")
+
+    # 2.对象传递给openpyxl，由openpyxl读取文件的内容
+    wb = load_workbook(file_object)
+    sheet = wb.worksheets[0]
+
+    # 3.循环获取每一行数据
+    for row in sheet.iter_rows(min_row=2):
+        text = row[0].value
+
+        # 首先判断数据是否存在
+        exists = models.Server.objects.filter(hostname=text).exists()
+        # 如果不存在就添加
+        if not exists:
+            models.Server.objects.create(hostname=text)
+
+    return redirect('/server/list/')

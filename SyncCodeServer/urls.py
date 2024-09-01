@@ -32,9 +32,10 @@ urlpatterns = [
     path("server/list/", server.server_list, name='server_list'),
     path("server/add/", server.server_add, name='server_add'),
 
-    # (?P<pk>\d+/$ 正则表达式, 用来匹配到url中的内容(ID)
+    # <int:nid>用来匹配到url中的内容(ID)
     path("server/edit/<int:nid>/", server.server_edit, name='server_edit'),
     path("server/delete/<int:nid>/", server.server_delete, name='server_delete'),
+    path("server/multi/", server.server_multi, name='server_multi'),
 
     # 项目管理
     path("project/list/", project.project_list, name='project_list'),

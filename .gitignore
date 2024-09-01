@@ -1,1 +1,9 @@
 *.tar
+venv
+.venv
+.idea
+
+# Django stuff:
+local_settings.py
+
+*.pyc

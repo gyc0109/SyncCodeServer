@@ -2,14 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/Django_login/Django_login-test-v1-20240829205747/Django_login" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240829211734/peiqi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240829215942/peiqi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240831132831/peiqi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240831132906/peiqi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240901003924/peiqi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240901004237/peiqi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240901004726/peiqi" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240901145028/peiqi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240901175311/peiqi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240901175649/peiqi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240901181030/peiqi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/codes/peiqi/peiqi-test-v1-20240901183406/peiqi" vcs="Git" />
   </component>
 </project>

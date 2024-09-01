@@ -53,7 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "web.middleware.auth.AuthMiddleware",
+    "web.middleware.auth.AuthMiddleware",  # 自定义中间件, 用来判断用户是否登录
 ]
 
 ROOT_URLCONF = "SyncCodeServer.urls"
@@ -95,6 +95,7 @@ DATABASES = {
         'PASSWORD': '1452128068*Gyc',
         'HOST': '127.0.0.1',  # 那台机器安装了MySQL
         # 'HOST': '156.238.236.88',  # 那台机器安装了MySQL
+        # 'HOST': '121.40.149.240',  # 那台机器安装了MySQL
         'PORT': 3306,
     }
 }

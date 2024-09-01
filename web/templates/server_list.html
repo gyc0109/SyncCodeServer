@@ -1,10 +1,42 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block title %}服务器管理{% endblock %}
 
 {% block content %}
     <div class="container">
         <h1>服务器列表</h1>
+        <div class="panel panel-default">
+            <div class="panel-heading">Execl 批量上传</div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" action="/server/multi/">
+
+                    <div class="container col-xs-6 col-md-6">
+                        {% csrf_token %}
+
+                        <div class="row" style="margin: 100px auto;">
+                            <div class="col-md-6"><input type="file" name="exc" style="margin-bottom: 10px"
+                                                         class="input-lg"></div>
+                            <div class="col-md-6"><input type="submit" value="上传" class="btn btn-info btn-lg"></div>
+                        </div>
+
+
+                    </div>
+                    <div class="container col-xs-6 col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="color: #0f5132;"><strong>Execl 导入示例:</strong></div>
+                            <div class="panel-body">
+                                <img data-src="holder.js/100%x180" alt="100%x180"
+                                     style="height: 180px; width: auto; display: block;"
+                                     src="{% static '/img/img.png' %}"
+                                     data-holder-rendered="true">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <div>

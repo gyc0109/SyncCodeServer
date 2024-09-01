@@ -3,3 +3,6 @@ mysqlclient
 daphne
 channels
 pillow
+gitpython
+paramiko
+openpyxl
