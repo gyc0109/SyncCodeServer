@@ -57,7 +57,7 @@ def server_edit(request, nid):
         # /server/list/
         return redirect('/server/list/')
     else:
-        return render(request, 'form.html', {'form': form})
+        return render(request, 'form.html', {'form': form, 'title': "编辑服务器"})
 
 
 def server_delete(request, nid):

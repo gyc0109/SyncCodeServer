@@ -31,7 +31,7 @@ def project_list(request):
 def project_add(request):
     if request.method == "GET":
         form = ProjectModelForm()
-        return render(request, 'form.html', {'form': form})
+        return render(request, 'form.html', {'form': form, 'title': "添加项目"})
     # 接受用户提交的数据并进行验证
     form = ProjectModelForm(data=request.POST)
     # 验证通过后保存
@@ -48,7 +48,7 @@ def project_edit(request, nid):
     project_object = models.Project.objects.filter(id=nid).first()
     if request.method == "GET":
         form = ProjectModelForm(instance=project_object)
-        return render(request, 'form.html', {'form': form})
+        return render(request, 'form.html', {'form': form, 'title': "编辑项目"})
     form = ProjectModelForm(data=request.POST, instance=project_object)
     # 验证通过后保存
     if form.is_valid():

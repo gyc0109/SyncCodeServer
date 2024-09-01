@@ -1,10 +1,13 @@
 {% extends 'layout.html' %}
 {% load static %}
 
+{% block title %}发布任务{% endblock %}
+
 {% block content %}
     <div class="container">
         <h1>channles发布</h1>
-        <input type="button" class="btn btn-primary" style="margin-bottom: 5px" value="初始化图标" onclick="createDiagram()"/>
+        <input type="button" class="btn btn-primary" style="margin-bottom: 5px" value="初始化图标"
+               onclick="createDiagram()"/>
         <input type="button" class="btn btn-primary" style="margin-bottom: 5px" value="代码发布" onclick="doDeploy()">
 
         <div class="panel panel-default">
